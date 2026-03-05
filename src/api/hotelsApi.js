@@ -27,3 +27,17 @@ export const fetchHotels = async ({
   });
   return response.data;
 };
+
+
+export const fetchHotelDetail = async ({ hotel_id, checkin_date, checkout_date }) => {
+  const response = await axiosInstance.get("/hotels/detail", {
+    params: {
+      hotel_id,
+      checkin_date,
+      checkout_date,
+      adults: 2,
+      currency_code: "USD"
+    }
+  })
+  return response.data
+}
