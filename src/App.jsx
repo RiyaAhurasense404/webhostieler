@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/layout/Layout";
 import HomePage from "./pages/HomePage";
 import HotelsPage from "./pages/HotelsPage";
-import HotelsDetailPage from "./pages/HotelsDetailPage";
+import HotelsDetailPage from "./pages/HotelDetailPage";
 import WishListPage from "./pages/WishListPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
