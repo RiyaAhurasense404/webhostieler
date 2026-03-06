@@ -5,7 +5,6 @@ import HotelsPage from "./pages/HotelsPage";
 import HotelsDetailPage from "./pages/HotelDetailPage";
 import WishListPage from "./pages/WishListPage";
 import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
 import BookingPage from "./pages/BookingPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
@@ -22,7 +21,6 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
       </Routes>
     </BrowserRouter>
   );
