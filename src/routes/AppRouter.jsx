@@ -6,6 +6,8 @@ import HotelsPage from "../pages/HotelsPage";
 import HotelDetailPage from "../pages/HotelDetailPage";
 import BookingPage from "../pages/BookingPage";
 import WishListPage from "../pages/WishListPage";
+import NotFoundPage from "../pages/NotFoundPage";
+import Layout from "../components/layout/Layout";
 
 <BrowserRouter>
   <Routes>
