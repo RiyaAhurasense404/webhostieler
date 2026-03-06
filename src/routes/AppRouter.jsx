@@ -9,20 +9,24 @@ import WishListPage from "../pages/WishListPage";
 import NotFoundPage from "../pages/NotFoundPage";
 import Layout from "../components/layout/Layout";
 
-<BrowserRouter>
-  <Routes>
-    <Route element={<Layout />}>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/login" element={<LoginPage />} />
+export const AppRouter = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
 
-      <Route element={<ProtectedRoute />}>
-        <Route path="/hotels" element={<HotelsPage />} />
-        <Route path="/hotels/:id" element={<HotelDetailPage />} />
-        <Route path="/booking" element={<BookingPage />} />
-        <Route path="/wishlist" element={<WishListPage />} />
-      </Route>
+          <Route element={<ProtectedRoute />}>
+            <Route path="/hotels" element={<HotelsPage />} />
+            <Route path="/hotels/:id" element={<HotelDetailPage />} />
+            <Route path="/booking" element={<BookingPage />} />
+            <Route path="/wishlist" element={<WishListPage />} />
+          </Route>
 
-      <Route path="*" element={<NotFoundPage />} />
-    </Route>
-  </Routes>
-</BrowserRouter>;
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+};
