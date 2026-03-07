@@ -1,17 +1,19 @@
-// import { useHotelsQuery } from "../queries/useHotelsQuery"
+import { useHotelsQuery } from "../queries/useHotelsQuery"
+import HotelList from "../components/hotel/HotelList"
 
-// const HotelsPage = () => {
-//   const { data, isLoading, isError } = useHotelsQuery({
-//     dest_id: "-2092174",
-//     dest_type: "city"
-//   })
+const HotelsPage = () => {
+  const { data,isError, isLoading } = useHotelsQuery({
+    dest_id: "-2092174",
+    dest_type: "city"
+  })
 
-//   console.log(data)
+  if(isLoading) return <p>Loading...</p>
+  if(isError) return <p>Error!</p>
 
-//   if(isLoading) return <p>Loading...</p>
-//   if(isError) return <p>Error!</p>
-
-//   return <div>{JSON.stringify(data)}</div>
-// }
-
-// export default HotelsPage
+  return (
+    <div>
+      <HotelList hotels={data?.data} />
+    </div>
+  )
+}
+export default HotelsPage
