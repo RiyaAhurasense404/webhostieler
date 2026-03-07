@@ -1,5 +1,5 @@
 import React from 'react'
-import fetchHotelDetail from '../api/hotelsApi';
+import { fetchHotels } from "../api/hotelsApi"
 
 const HomePage = () => {
   return (

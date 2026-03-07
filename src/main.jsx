@@ -19,3 +19,10 @@ createRoot(document.getElementById("root")).render(
     </QueryClientProvider>
   </StrictMode>
 );
+
+// import { bookHotel } from "./api/hotelsApi"
+
+// bookHotel({
+//   hotel_id: "15914332",
+//   blockIds: "1591433202_397237548_2_1_0"
+// }).then(data => console.log(data))

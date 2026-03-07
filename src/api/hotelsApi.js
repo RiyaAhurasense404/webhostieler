@@ -1,9 +1,9 @@
 import axiosInstance from "./axiosInstance"
 
 export const fetchAutoComplete = async (query) => {
-  const response = await axiosInstance.get("/hotels/search/autocomplete", {
+  const response = await axiosInstance.get("/autocomplete", {
     params: {
-      query: query,
+      location: query,
     },
   });
   return response.data;
@@ -15,7 +15,7 @@ export const fetchHotels = async ({
   checkin_date,
   checkout_date,
 }) => {
-  const response = await axiosInstance.get("/hotels/search/by-dest", {
+  const response = await axiosInstance.get("/search/by-dest", {
     params: {
       dest_id,
       dest_type,
@@ -30,7 +30,7 @@ export const fetchHotels = async ({
 
 
 export const fetchHotelDetail = async ({ hotel_id, checkin_date, checkout_date }) => {
-  const response = await axiosInstance.get("/hotels/detail", {
+  const response = await axiosInstance.get("hotel/get-detail", {
     params: {
       hotel_id,
       checkin_date,
@@ -44,7 +44,7 @@ export const fetchHotelDetail = async ({ hotel_id, checkin_date, checkout_date }
 
 
 export const bookHotel = async ({ hotel_id, blockIds, checkin_date, checkout_date }) => {
-  const response = await axiosInstance.get("/hotels/detail/book-process-info", {
+  const response = await axiosInstance.get("/hotel/detail/book-process-info", {
     params: {
       hotel_id,
       blockIds,
