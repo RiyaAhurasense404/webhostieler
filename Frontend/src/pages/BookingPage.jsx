@@ -1,12 +1,14 @@
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { bookingSchema } from "../schemas/bookingSchema"
 import { useBookingMutation } from "../queries/useBookingMutation"
+import toast from "react-hot-toast"
 
 const BookingPage = () => {
   const location = useLocation()
-  const { hotel_id, blockIds } = location.state
+  const navigate = useNavigate()
+  const { hotel_id } = location.state
   const { mutate } = useBookingMutation()
 
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -14,12 +16,9 @@ const BookingPage = () => {
   })
 
   const onSubmit = (data) => {
-    mutate({
-      hotel_id,
-      blockIds,
-      checkin_date: data.checkin_date,
-      checkout_date: data.checkout_date
-    })
+    mutate({ hotel_id, ...data })
+    toast.success("Booking confirmed! 🎉")
+    navigate("/hotels")
   }
 
   return (

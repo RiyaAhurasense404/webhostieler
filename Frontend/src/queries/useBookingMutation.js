@@ -1,8 +1,10 @@
 import { useMutation } from "@tanstack/react-query"
-import { bookHotel } from "../api/hotelsApi"
 
 export const useBookingMutation = () => {
-    return useMutation({
-        mutationFn: (bookingData) => bookHotel(bookingData)
-    })
+  return useMutation({
+    mutationFn: (bookingData) => {
+      console.log("Booking data:", bookingData)
+      return Promise.resolve(bookingData)
+    }
+  })
 }

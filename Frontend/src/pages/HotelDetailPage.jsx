@@ -1,38 +1,36 @@
-import { useParams } from "react-router-dom";
-import { useDetailQuery } from "../queries/useDetailQuery";
-import { useNavigate } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
+import { useDetailQuery } from "../queries/useDetailQuery"
 
 const HotelDetailPage = () => {
-  const { id } = useParams();
+  const { id } = useParams()
   const navigate = useNavigate()
-  
+
   const { data, isLoading, isError } = useDetailQuery({
-    hotel_id: id,
-  });
+    hotel_id: id
+  })
 
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>Error!</p>;
+  if(isLoading) return <p>Loading...</p>
+  if(isError) return <p>Error!</p>
 
-  const hotel = data?.data;
+  const hotel = data?.data
 
   return (
     <div>
-      <h1>{hotel?.hotel_name}</h1>
-      <p>{hotel?.address}</p>
+      <img src={hotel?.image_url} alt={hotel?.name} />
+      <h1>{hotel?.name}</h1>
       <p>{hotel?.city}</p>
-      <button
-        onClick={() =>
-          navigate("/booking", {
-            state: {
-              hotel_id: hotel?.hotel_id,
-              blockIds: hotel?.block[0]?.block_id,
-            },
-          })
+      <p>{hotel?.rating} ⭐</p>
+      <p>₹{hotel?.price}</p>
+      <p>{hotel?.description}</p>
+      <button onClick={() => navigate("/booking", {
+        state: {
+          hotel_id: hotel?.id,
+          hotel_name: hotel?.name
         }
-      >
+      })}>
         Book Now 📅
-      </button>{" "}
+      </button>
     </div>
-  );
-};
-export default HotelDetailPage;
+  )
+}
+export default HotelDetailPage

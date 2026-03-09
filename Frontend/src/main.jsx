@@ -5,6 +5,7 @@ import App from "./App.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import { WishListProvider } from "./context/WishListContext.jsx";
+import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient();
 
@@ -14,18 +15,9 @@ createRoot(document.getElementById("root")).render(
       <AuthProvider>
         <WishListProvider>
           <App />
+          <Toaster position="top-right" />
         </WishListProvider>
       </AuthProvider>
     </QueryClientProvider>
   </StrictMode>
 );
-
-// import { fetchHotelDetail } from "./api/hotelsApi"
-
-// fetchHotels({
-//   dest_id: "-2092174",
-//   dest_type: "city"
-// }).then(data => console.log(data))
-
-// fetchHotelDetail({ hotel_id: "15914332" })
-//   .then(data => console.log(data?.data?.block[0]?.block_id))
