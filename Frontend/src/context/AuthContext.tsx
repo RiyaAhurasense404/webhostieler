@@ -1,32 +1,38 @@
-import { createContext, useState } from "react"
+import { createContext, useState, ReactNode } from "react"
 import { saveToStorage, getFromStorage, removeFromStorage } from "../utils/localStorage"
 import axios from "axios"
+import { AuthContextType, User } from "../types"
 
-export const AuthContext = createContext(null)
+export const AuthContext = createContext<AuthContextType | null>(null)
 
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(() => getFromStorage("user") || null)
+interface Props {
+  children: ReactNode
+}
 
-  const login = async (username, password) => {
+export const AuthProvider = ({ children }: Props) => {
+  const [user, setUser] = useState<User | null>(() => getFromStorage("user") as User || null)
+
+  const login = async (username: string, password: string): Promise<{ success: boolean; error?: string }> => {
     try {
       const response = await axios.post("http://localhost:8000/api/auth/login", {
         username,
         password
       })
       const { token, username: uname } = response.data
-      const userData = { username: uname, token }
+      const userData: User = { username: uname, token }
       setUser(userData)
       saveToStorage("user", userData)
-      return true
-    } catch (err) {
-      return{
-        success: false, 
-      error: err.response?.data?.error || "Kuch gadbad ho gayi!" 
+      return { success: true }
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { error?: string } } }
+      return {
+        success: false,
+        error: error.response?.data?.error || "Kuch gadbad ho gayi!"
       }
     }
   }
 
-  const logout = () => {
+  const logout = (): void => {
     setUser(null)
     removeFromStorage("user")
   }

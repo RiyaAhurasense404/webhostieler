@@ -18,7 +18,7 @@ const HotelsPage = () => {
   return (
     <div>
       <HotelFilters />
-      <HotelList hotels={data?.data} />
+      <HotelList hotels={data?.data ??[]} />
     </div>
   )
 }

@@ -3,14 +3,18 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { registerSchema } from "../schemas/registerSchema"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
+import { z } from "zod"
+
+type RegisterFormData = z.infer<typeof registerSchema>
 
 const RegisterPage = () => {
   const navigate = useNavigate()
-  const { register, handleSubmit, formState: { errors } } = useForm({
+
+  const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema)
   })
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: RegisterFormData) => {
     try {
       await axios.post("http://localhost:8000/api/auth/register", {
         username: data.username,
@@ -27,15 +31,13 @@ const RegisterPage = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <input {...register("username")} placeholder="Username" />
       {errors.username && <p>{errors.username.message}</p>}
-      
       <input {...register("password")} type="password" placeholder="Password" />
       {errors.password && <p>{errors.password.message}</p>}
-      
       <input {...register("confirmPassword")} type="password" placeholder="Confirm Password" />
       {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
-      
       <button type="submit">Register</button>
     </form>
   )
 }
+
 export default RegisterPage

@@ -1,13 +1,18 @@
 import { useNavigate } from "react-router-dom"
 import { useWishList } from "../../hooks/useWishList"
 import { useCallback } from "react"
+import { Hotel } from "../../types"
 
-const HotelCard = ({ hotel }) => {
+interface Props {
+  hotel: Hotel
+}
+
+const HotelCard = ({ hotel }: Props) => {
   const navigate = useNavigate()
   const { wishlist, dispatch } = useWishList()
-  const isWishlisted = wishlist.some((item) => item.id === hotel.id)
+  const isWishlisted = wishlist.some((item: Hotel) => item.id === hotel.id)
 
-  const handleWishlist = useCallback((e) => {
+  const handleWishlist = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation()
     dispatch({ type: isWishlisted ? "Remove" : "Add", payload: hotel })
   }, [dispatch, isWishlisted, hotel])
@@ -25,4 +30,5 @@ const HotelCard = ({ hotel }) => {
     </div>
   )
 }
+
 export default HotelCard

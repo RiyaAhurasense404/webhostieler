@@ -1,19 +1,24 @@
-import { createContext, useEffect, useReducer } from "react"
+import { createContext, useEffect, useReducer, ReactNode } from "react"
 import wishlistReducer from "./wishlistReducer"
 import { getFromStorage, saveToStorage } from "../utils/localStorage"
+import { Hotel, WishListContextType, WishListAction } from "../types"
 
-export const WishListContext = createContext(null)
+export const WishListContext = createContext<WishListContextType | null>(null)
 
-export const WishListProvider = ({ children }) => {
+interface Props {
+  children: ReactNode
+}
 
-  const [wishlist, dispatch] = useReducer(wishlistReducer, [], () => {
-    const saved = getFromStorage("wishlist")
-    return saved || []
-  })
+export const WishListProvider = ({ children }: Props) => {
+  const [wishlist, dispatch] = useReducer<Hotel[], [WishListAction]>(
+    wishlistReducer,
+    (getFromStorage("wishlist") as Hotel[]) || []
+  )
 
-  useEffect(() =>{
+  useEffect(() => {
     saveToStorage("wishlist", wishlist)
-  },[wishlist])
+  }, [wishlist])
+
   return (
     <WishListContext.Provider value={{ wishlist, dispatch }}>
       {children}
